@@ -1,5 +1,5 @@
 {
-  "name": "maxstache",
+  "name": "maxstache-variable-injection",
   "version": "1.0.7",
   "description": "Minimalist mustache template replacement",
   "main": "index.js",
@@ -10,7 +10,7 @@
     "test": "standard && npm run deps && NODE_ENV=test node test",
     "test:cov": "standard && npm run deps && NODE_ENV=test istanbul cover test.js"
   },
-  "repository": "yoshuawuyts/maxstache",
+  "repository": "taiwanhua/maxstache-variable-injection",
   "keywords": [
     "mustache",
     "template",

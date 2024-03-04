@@ -1,25 +1,26 @@
-const assert = require('assert')
+const assert = require("assert");
 
-module.exports = maxstache
+module.exports = maxstache;
+
+const defaultPattern = "{{\\s*([^{}\\s]+)\\s*}}";
 
 // Minimalist mustache template replacement
 // (str, obj) -> null
-function maxstache (str, ctx) {
-  ctx = ctx || {}
+function maxstache(str, ctx, pattern = defaultPattern) {
+  ctx = ctx || {};
 
-  assert.equal(typeof str, 'string')
-  assert.equal(typeof ctx, 'object')
+  assert.equal(typeof str, "string");
+  assert.equal(typeof ctx, "object");
+  assert.equal(typeof pattern, "string");
 
-  const tokens = str.split(/\{\{|\}\}/)
-  const res = tokens.map(parse(ctx))
-  return res.join('')
+  return replaceTemplateVars(str, ctx, pattern);
 }
 
-// parse a token
-// obj -> (str, num) -> str
-function parse (ctx) {
-  return function parse (token, i) {
-    if (i % 2 === 0) return token
-    return ctx[token]
-  }
+function replaceTemplateVars(templateStr, params, pattern = defaultPattern) {
+  // Construct the regular expression using the passed-in pattern. If no pattern is provided, then use the default value.
+  const regex = new RegExp(pattern, "g");
+
+  return templateStr.replace(regex, (match, p1) => {
+    return params[p1] || match;
+  });
 }
